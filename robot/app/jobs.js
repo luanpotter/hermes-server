@@ -16,11 +16,11 @@ var execRequest = function (url, callback) {
 
 exports.newInstance = function (jobType, callback) {
 	return new Job({interval: config.interval}, function(done) {
-		JobRequest.find()
+		JobRequest.findOne()
 		.where('type', jobType)
 		.where('active', true)
 		.exec(function(err, jobsRequests) {
-			execRequest(jobsRequests[0].url, callback);
+			execRequest(jobsRequests.url, callback);
 			done();
 		});
 	});
