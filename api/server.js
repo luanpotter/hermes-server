@@ -8,9 +8,11 @@ mongoose.connect('mongodb://localhost/osi-7');
 
 //fixtures:start
 var NotificationFixtures = require('../fixtures/notification');
+var ServerFixtures = require('../fixtures/server');
 //fixtures:finish
 
 var Notification = require('../models/notification');
+var Server = require('../models/server');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -32,6 +34,11 @@ router.route('/notifications/:notification_id')
 	})
 	.put(function(req, res) {
 		services.update(Notification, req.params.notification_id, req.body, res);
+	});
+
+router.route('/servers')
+	.get(function(req, res) {
+		services.findAll(Server, res, req.query);
 	});
 
 app.use('/api', router);

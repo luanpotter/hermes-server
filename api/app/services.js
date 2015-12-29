@@ -8,6 +8,15 @@ var skipLimitFindAll = function (Model, skip, limit, callback) {
 	Model.find().skip(skip).limit(limit).exec(callback);
 };
 
+var widgetRunIdFindAll = function (Model, run_id, callback) {
+	var lastRunId = run_id;
+	if(run_id === 'last')
+		Model.findOne().sort('-run_id').exec(function(err, last) {
+			lastRunId = last.run_id;
+			Model.find({ run_id: lastRunId }).exec(callback);
+		});
+};
+
 exports.findById = function (Model, id, res) {
 	Model.findById(id, function(err, result) {
 		res.json(result);
@@ -21,6 +30,8 @@ exports.findAll = function (Model, res, query) {
 
 	if(query && query.skip && query.limit) {
 		skipLimitFindAll(Model, query.skip, query.limit, callback);
+	} else if(query && query.run_id) {
+		widgetRunIdFindAll(Model, query.run_id, callback);
 	} else {
 		simpleFindAll(Model, callback);
 	}
