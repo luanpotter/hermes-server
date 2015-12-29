@@ -38,7 +38,7 @@ exports.create = function (Model, form, res) {
 
 exports.update = function (Model, id, form, res) {
 	Model.findById(id, function(err, model) {
-		_.extend(bear, form);
+		_.extend(model, form);
 		model.save(function(err) {
 			res.json({
 				message: 'Updated!'
