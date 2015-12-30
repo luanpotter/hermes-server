@@ -1,8 +1,8 @@
 var express	= require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var services = require('./app/services');
-var jobRequestService = require('./app/jobs_request.services');
+var services = require('../services/services');
+var jobRequestService = require('../services/jobs_request.services');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/osi-7');

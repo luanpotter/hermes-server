@@ -35,7 +35,7 @@ var isFunction = function (obj) {
 	return obj && typeof obj == 'function';
 };
 
-exports.getLastRunId = getLastRunId;
+exports.findLastRunId = getLastRunId;
 
 exports.findById = function (Model, id, res) {
 	Model.findById(id, function(err, result) {
@@ -59,9 +59,10 @@ exports.create = function (Model, form, res) {
 	var model = new Model();	
 	_.extend(model, form);
 	model.save(function(err) {
-		res.json({
-			message: 'Created!'
-		});
+		if(res)
+			res.json({
+				message: 'Created!'
+			});
 	});
 };
 

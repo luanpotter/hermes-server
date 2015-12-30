@@ -1,6 +1,6 @@
 var _ = require('underscore');
 var services = require('./services');
-var JobRequest = require('../../models/job-request');
+var JobRequest = require('../models/job-request');
 
 var saveModel = function (form, res) {
 	return function () {
