@@ -33,6 +33,9 @@ router.use(function(req, res, next) {
 router.route('/notifications')
 	.get(function(req, res) {
 		services.findAll(Notification, res, req.query);
+	})
+	.post(function(req, res) {
+		services.create(Notification, req.body, res);
 	});
 
 router.route('/notifications/:notification_id')
