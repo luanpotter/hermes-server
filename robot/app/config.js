@@ -1,4 +1,6 @@
 exports.interval = 5000;
 exports.jobTypes = {
-	TIMERS: 'TIMERS'
+	TIMERS: 'TIMERS',
+	SERVERS: 'SERVERS',
+	SERVICES: 'SERVICES'
 };

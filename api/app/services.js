@@ -1,9 +1,5 @@
 var _ = require('underscore');
 
-var simpleFindAll = function (Model, callback) {
-	Model.find(callback);
-};
-
 var skipLimitFindAll = function (Model, skip, limit, callback) {
 	Model.find().skip(skip).limit(limit).exec(callback);
 };
@@ -17,6 +13,21 @@ var widgetRunIdFindAll = function (Model, run_id, callback) {
 		});
 };
 
+var simpleFindAll = function (Model, query, callback) {
+	var q = Model.find();
+	for (var key in query) {
+ 		if (query.hasOwnProperty(key) && key != 'skip' && key != 'limit') {
+    		q = q.where(key, query[key]);
+  		}
+	}
+	if(query.skip)
+		q = q.skip(query.skip);
+	if(query.limit)
+		q = q.limit(query.limit);
+
+	q.exec(callback);
+};
+
 exports.findById = function (Model, id, res) {
 	Model.findById(id, function(err, result) {
 		res.json(result);
@@ -28,12 +39,10 @@ exports.findAll = function (Model, res, query) {
 		res.json(result);
 	};
 
-	if(query && query.skip && query.limit) {
-		skipLimitFindAll(Model, query.skip, query.limit, callback);
-	} else if(query && query.run_id) {
+	if(query && query.run_id) {
 		widgetRunIdFindAll(Model, query.run_id, callback);
 	} else {
-		simpleFindAll(Model, callback);
+		simpleFindAll(Model, query, callback);
 	}
 };
 

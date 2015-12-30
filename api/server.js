@@ -11,12 +11,14 @@ var NotificationFixtures = require('../fixtures/notification');
 var ServerFixtures = require('../fixtures/server');
 var ServiceFixtures = require('../fixtures/service');
 var TimerFixtures = require('../fixtures/timer');
+var JobRequestFixtures = require('../fixtures/job-request');
 //fixtures:finish
 
 var Notification = require('../models/notification');
 var Server = require('../models/server');
 var Service = require('../models/service');
 var Timer = require('../models/timer');
+var JobRequest = require('../models/job-request');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -53,6 +55,19 @@ router.route('/services')
 router.route('/timers')
 	.get(function(req, res) {
 		services.findAll(Timer, res, req.query);
+	});
+
+router.route('/jobs_request')
+	.get(function(req, res) {
+		services.findAll(JobRequest, res, req.query);
+	})
+	.post(function(req, res) {
+		services.create(JobRequest, req.body, res);
+	});
+
+router.route('/jobs_request/:job_request_id')
+	.put(function(req, res) {
+		services.update(JobRequest, req.params.job_request_id, req.body, res);
 	});
 
 app.use('/api', router);
