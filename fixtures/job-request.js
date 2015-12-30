@@ -4,19 +4,19 @@ JobRequest.remove(function () {
 });
 
 var timers = new JobRequest();
-timers.url = 'http://jsonplaceholder.typicode.com/users';
+timers.url = 'http://demo7051396.mockable.io/timers';
 timers.type = 'TIMERS';
 timers.active = true;
 timers.save();	
 
 var servers = new JobRequest();
-servers.url = 'http://jsonplaceholder.typicode.com/users';
+servers.url = 'http://demo7051396.mockable.io/servers';
 servers.type = 'SERVERS';
 servers.active = true;
 servers.save();	
 
 var services = new JobRequest();
-services.url = 'http://jsonplaceholder.typicode.com/users';
+services.url = 'http://demo7051396.mockable.io/services';
 services.type = 'SERVICES';
 services.active = true;
 services.save();	
