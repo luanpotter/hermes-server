@@ -1,16 +1,23 @@
 var _ = require('underscore');
 
-var widgetRunIdFindAll = function (Model, run_id, callback) {
-	var lastRunId = run_id;
-	if(run_id === 'last')
-		Model.findOne().sort('-run_id').exec(function(err, last) {
-			lastRunId = last.run_id;
-			Model.find({ run_id: lastRunId }).exec(callback);
-		});
+var widgetRunIdFindAll = function (Model, query, callback) {
+	delete query.run_id;
+	getLastRunId(Model, function (lastRunId) {
+		simpleQueries(Model.find().where('run_id', lastRunId), query,callback);
+	});
+};
+
+var getLastRunId = function(Model, callback) {
+	Model.findOne().sort('-run_id').exec(function(err, last) {
+		callback(last.run_id);
+	});
 };
 
 var simpleFindAll = function (Model, query, callback) {
-	var q = Model.find();
+	simpleQueries(Model.find(), query, callback);
+};
+
+var simpleQueries = function (q, query, callback) {
 	for (var key in query) {
  		if (query.hasOwnProperty(key) && key != 'skip' && key != 'limit') {
     		q = q.where(key, query[key]);
@@ -28,6 +35,8 @@ var isFunction = function (obj) {
 	return obj && typeof obj == 'function';
 };
 
+exports.getLastRunId = getLastRunId;
+
 exports.findById = function (Model, id, res) {
 	Model.findById(id, function(err, result) {
 		res.json(result);
@@ -39,8 +48,8 @@ exports.findAll = function (Model, res, query) {
 		res.json(result);
 	};
 
-	if(query && query.run_id) {
-		widgetRunIdFindAll(Model, query.run_id, callback);
+	if(query && query.run_id == 'last') {
+		widgetRunIdFindAll(Model, query, callback);
 	} else {
 		simpleFindAll(Model, query, callback);
 	}
