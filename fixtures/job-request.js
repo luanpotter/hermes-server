@@ -17,7 +17,7 @@ servers.save();
 
 var services = new JobRequest();
 services.url = 'http://jsonplaceholder.typicode.com/users';
-services.type = 'SERVERS';
+services.type = 'SERVICES';
 services.active = true;
 services.save();	
 

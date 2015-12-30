@@ -1,9 +1,5 @@
 var _ = require('underscore');
 
-var skipLimitFindAll = function (Model, skip, limit, callback) {
-	Model.find().skip(skip).limit(limit).exec(callback);
-};
-
 var widgetRunIdFindAll = function (Model, run_id, callback) {
 	var lastRunId = run_id;
 	if(run_id === 'last')
@@ -26,6 +22,10 @@ var simpleFindAll = function (Model, query, callback) {
 		q = q.limit(query.limit);
 
 	q.exec(callback);
+};
+
+var isFunction = function (obj) {
+	return obj && typeof obj == 'function';
 };
 
 exports.findById = function (Model, id, res) {
@@ -60,9 +60,12 @@ exports.update = function (Model, id, form, res) {
 	Model.findById(id, function(err, model) {
 		_.extend(model, form);
 		model.save(function(err) {
-			res.json({
-				message: 'Updated!'
-			});
+			if (isFunction(res))
+				res();
+			else
+				res.json({
+					message: 'Updated!'
+				});
 		});
 	});
 }

@@ -2,6 +2,7 @@ var express	= require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var services = require('./app/services');
+var jobRequestService = require('./app/jobs_request.services');
 
 var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/osi-7');
@@ -62,11 +63,12 @@ router.route('/jobs_request')
 		services.findAll(JobRequest, res, req.query);
 	})
 	.post(function(req, res) {
-		services.create(JobRequest, req.body, res);
+		jobRequestService.create(req.body, res);
 	});
 
 router.route('/jobs_request/:job_request_id')
 	.put(function(req, res) {
+		delete req.body.active;
 		services.update(JobRequest, req.params.job_request_id, req.body, res);
 	});
 
