@@ -1,11 +1,14 @@
 {
-  "name": "osi-7-server",
-  "dependencies": {
-    "body-parser": "~1.0.1",
-    "express": "~4.0.0",
-    "mongoose": "~3.6.13",
-    "request": "^2.67.0",
-    "timer-jobs": "^0.1.0",
-    "underscore": "^1.8.3"
-  }
+    "name": "osi-7-server",
+    "scripts": {
+        "start": "node api/server.js"
+    },
+    "dependencies": {
+        "body-parser": "~1.0.1",
+        "express": "~4.0.0",
+        "mongoose": "~3.6.13",
+        "request": "^2.67.0",
+        "timer-jobs": "^0.1.0",
+        "underscore": "^1.8.3"
+    }
 }
