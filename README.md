@@ -16,10 +16,17 @@ A panel which monitors all the functions of the application layer. (API and Robo
   
 ### Instaling (mongodb):
 
+On Ubuntu:
+
 1. `sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10`
 2. `echo "deb http://repo.mongodb.org/apt/ubuntu trusty/mongodb-org/3.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.0.list`
 3. `sudo apt-get update`
 4. `sudo apt-get install mongodb-org`
+
+On Arch:
+
+1. `sudo pacman -S mongodb # install from pacman`
+2. `systemctl start mongodb.service # init the daemon`
 
 ## Start the project:
 
