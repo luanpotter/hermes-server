@@ -1,5 +1,6 @@
 var express	= require('express');
 var app = express();
+var cors = require('cors');
 var bodyParser = require('body-parser');
 var services = require('../services/services');
 var jobRequestService = require('../services/jobs_request.services');
@@ -23,6 +24,9 @@ var JobRequest = require('../models/job-request');
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+
+app.use(cors());
+app.options('*', cors());
 
 var router = express.Router();
 
